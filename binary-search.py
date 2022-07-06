@@ -18,6 +18,9 @@
 # if min_val==max_val:
 #     print("Search not found")
 
+import random
+import time
+
 def binary_search(l, target, low = None, ri = None):
     if low is None:
         low = 0
@@ -34,9 +37,35 @@ def binary_search(l, target, low = None, ri = None):
     else:
         return binary_search(l, target, low, mid-1)
 
+def naive_search(l, target):
+    for i in range(len(l)):
+        if l[i] == target:
+            return i
+    return -1
 
 if __name__ =='__main__':
-    l = [1,2,3,4,5]
-    target = 1
-    print(binary_search(l,target))
+    # l = [1,2,3,4,5]
+    # target = 1
+    # print(binary_search(l,target))
+
+    length = 10000
+    sorted_lst = set()
+
+    while len(sorted_lst) < length:
+        sorted_lst.add(random.randint(-3*length, 3*length))
+    sorted_lst = sorted(list(sorted_lst))
+    # print(sorted_lst[1:5])
+    start = time.time()
+    for target in sorted_lst:
+        binary_search(sorted_lst, target)
+    end = time.time()
+    print("binary search time is: ",(end-start)/length, "seconds")
+
+    start = time.time()
+    for target in sorted_lst:
+        naive_search(sorted_lst, target)
+    end = time.time()
+    print("naive search time is: ",(end-start)/length, "seconds")
+
+
 
